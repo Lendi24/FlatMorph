@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://icon.png" type="Texture" id=1]
+[ext_resource path="res://Maps/Dev/Scripts/Dev02 (SmoothMotion).gd" type="Script" id=2]
+
+[node name="Node2D" type="Node2D"]
+script = ExtResource( 2 )
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+
+[node name="Sprite" type="Sprite" parent="StaticBody2D"]
+position = Vector2( -1.90735e-06, -1.90735e-06 )
+scale = Vector2( 0.171875, 0.171875 )
+texture = ExtResource( 1 )
