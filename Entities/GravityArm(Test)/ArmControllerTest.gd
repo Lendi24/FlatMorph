@@ -18,13 +18,14 @@ func _ready():
 
 func _physics_process(_delta):
 	animate_arm(ArmPart1, ArmPart2)
+	custom_collision_check()
 	if(newBody != null && newBody.get_parent().name == "Head"):
 		var size = newBody.get_node("Sprite").texture.get_size() * newBody.get_node("Sprite").scale		
 		newBody.global_position = Vector2(0, 0)
 		newBody.position = Vector2(size.y + 0.4, 0)
 	
 	
-func animate_arm(arm_upper: KinematicBody2D, arm_lower: KinematicBody2D):
+func animate_arm(arm_upper: RigidBody2D, arm_lower: RigidBody2D):
 
 	var offset = get_global_mouse_position() - Vector2(global_position.x, global_position.y-5)
 	var distance = offset.length()
@@ -33,8 +34,8 @@ func animate_arm(arm_upper: KinematicBody2D, arm_lower: KinematicBody2D):
 	
 	var atan_val = atan2(offset.y, offset.x)
 	
-	var length_0 = abs((arm_upper.global_position - Head.global_position).length())
-	var length_1 = abs((arm_lower.global_position - arm_upper.global_position).length())
+	var length_0 = abs((arm_upper.position - Head.position).length())
+	var length_1 = abs((arm_lower.position - arm_upper.position).length())
 	
 	# it's too far away
 	if length_0 + length_1 < distance:
@@ -54,10 +55,18 @@ func animate_arm(arm_upper: KinematicBody2D, arm_lower: KinematicBody2D):
 	
 	
 	if (!is_nan(joint_angle_0)):# and !get_node("/root/Globals").GravArmStop):
-		arm_upper.rotation = joint_angle_0
+		arm_upper.set_rotation(joint_angle_0)
 		
 	if (!is_nan(joint_angle_1)):# and !get_node("/root/Globals").GravArmStop):
-		arm_lower.rotation = joint_angle_1
+		arm_lower.set_rotation(joint_angle_1)
+
+func custom_collision_check():
+	var space_rid = get_world_2d().space
+	var space_state = Physics2DServer.space_get_direct_state(space_rid)
+	var last_pos = Head.position
+	var hit = space_state.intersect_ray(last_pos, get_global_mouse_position(), [self, Base, ArmPart1.get_node("CollisionShape2D"), ArmPart2.get_node("CollisionShape2D"), Head.get_node("CollisionShape2D"), Head.get_node("Area2D/CollisionShape2D")] )
+	if(hit):
+		print("Hit at point : ", hit.collider.get_parent().name)
 
 func law_of_cos(a, b, c):
 	if 2 * a * b == 0:

@@ -7,15 +7,15 @@
 radius = 4.24264
 
 [sub_resource type="CircleShape2D" id=2]
-radius = 3.0
+radius = 1.80291
 
 [sub_resource type="CapsuleShape2D" id=3]
 radius = 1.99999
-height = 10.0
+height = 3.2415
 
 [sub_resource type="CapsuleShape2D" id=4]
 radius = 3.0
-height = 14.0
+height = 8.29815
 
 [sub_resource type="CapsuleShape2D" id=5]
 radius = 5.0
@@ -40,14 +40,17 @@ __meta__ = {
 "_edit_lock_": true
 }
 
-[node name="ArmPart1" type="KinematicBody2D" parent="Skeleton2D/Base"]
+[node name="ArmPart1" type="RigidBody2D" parent="Skeleton2D/Base"]
 position = Vector2( 0, -5 )
 rotation = -1.57908
-scale = Vector2( 1, 1 )
+mode = 3
+gravity_scale = 0.0
 
-[node name="ArmPart2" type="KinematicBody2D" parent="Skeleton2D/Base/ArmPart1"]
+[node name="ArmPart2" type="RigidBody2D" parent="Skeleton2D/Base/ArmPart1"]
 position = Vector2( 13, 7.86805e-07 )
 rotation = 0.0180436
+mode = 3
+gravity_scale = 0.0
 
 [node name="Head" type="KinematicBody2D" parent="Skeleton2D/Base/ArmPart1/ArmPart2"]
 position = Vector2( 11, 4.80825e-07 )
@@ -55,13 +58,13 @@ rotation = -0.0250843
 
 [node name="Area2D" type="Area2D" parent="Skeleton2D/Base/ArmPart1/ArmPart2/Head"]
 position = Vector2( 6.4, 0 )
-input_pickable = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Skeleton2D/Base/ArmPart1/ArmPart2/Head/Area2D"]
+position = Vector2( 0.059, 0 )
 shape = SubResource( 1 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Skeleton2D/Base/ArmPart1/ArmPart2/Head"]
-position = Vector2( 0.210163, -0.184503 )
+position = Vector2( 0.21, 0 )
 rotation = -2.42144e-08
 shape = SubResource( 2 )
 one_way_collision_margin = 0.0
@@ -69,6 +72,7 @@ one_way_collision_margin = 0.0
 [node name="Head" type="Polygon2D" parent="Skeleton2D/Base/ArmPart1/ArmPart2/Head"]
 position = Vector2( 13.3672, -23.7976 )
 rotation = 1.58612
+scale = Vector2( 1, 1 )
 texture = ExtResource( 1 )
 skeleton = NodePath("../../Skeleton2D")
 polygon = PoolVector2Array( 21, 4, 20, 5, 20, 8, 21, 9, 22, 9, 22, 11, 21, 11, 21, 15, 22, 15, 22, 16, 26, 16, 26, 15, 27, 15, 27, 11, 26, 11, 26, 9, 27, 9, 28, 8, 28, 8, 28, 5, 27, 4 )
@@ -77,7 +81,7 @@ polygons = [ PoolIntArray( 0, 20, 19, 18, 16, 15, 14, 13, 12, 11, 10, 9, 8, 7, 6
 bones = [ NodePath("Base"), PoolRealArray( 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ), NodePath("Base/ArmPart1"), PoolRealArray( 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ), NodePath("Base/ArmPart1/ArmPart2"), PoolRealArray( 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ), NodePath("Base/ArmPart1/ArmPart2/Head"), PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 ) ]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Skeleton2D/Base/ArmPart1/ArmPart2"]
-position = Vector2( 5.2111, -0.183352 )
+position = Vector2( 5.211, 0 )
 rotation = 1.5708
 shape = SubResource( 3 )
 
@@ -92,9 +96,8 @@ polygons = [ PoolIntArray( 15, 2, 1, 0 ), PoolIntArray( 14, 3, 4, 13 ), PoolIntA
 bones = [ NodePath("Base"), PoolRealArray( 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ), NodePath("Base/ArmPart1"), PoolRealArray( 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ), NodePath("Base/ArmPart1/ArmPart2"), PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 ), NodePath("Base/ArmPart1/ArmPart2/Head"), PoolRealArray( 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ) ]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Skeleton2D/Base/ArmPart1"]
-position = Vector2( 7, -2.27243e-07 )
+position = Vector2( 7.3, 0 )
 rotation = 1.5708
-scale = Vector2( 1, 1 )
 shape = SubResource( 4 )
 
 [node name="ArmPart1" type="Polygon2D" parent="Skeleton2D/Base/ArmPart1"]
@@ -113,7 +116,7 @@ rotation = 1.5708
 shape = SubResource( 5 )
 
 [node name="Base" type="Polygon2D" parent="Skeleton2D/Base"]
-position = Vector2( -24, -64 )
+position = Vector2( -24, -64.0743 )
 z_index = -1
 texture = ExtResource( 1 )
 skeleton = NodePath("../../Skeleton2D")
