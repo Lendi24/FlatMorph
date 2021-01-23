@@ -1,4 +1,4 @@
-extends Skeleton2D
+extends Node2D
 
 # Declare member variables here. Examples:
 # var a = 2
@@ -16,7 +16,7 @@ var newBody
 func _ready():
 	grabArea.connect("body_entered", self, "_on_physicsbody_entered")
 
-func _process(_delta):
+func _physics_process(_delta):
 	animate_arm(ArmPart1, ArmPart2)
 	if(newBody != null && newBody.get_parent().name == "Head"):
 		var size = newBody.get_node("Sprite").texture.get_size() * newBody.get_node("Sprite").scale		
@@ -24,7 +24,7 @@ func _process(_delta):
 		newBody.position = Vector2(size.y + 0.4, 0)
 	
 	
-func animate_arm(arm_upper: Bone2D, arm_lower: Bone2D):
+func animate_arm(arm_upper: KinematicBody2D, arm_lower: KinematicBody2D):
 
 	var offset = get_global_mouse_position() - Vector2(global_position.x, global_position.y-5)
 	var distance = offset.length()
@@ -33,8 +33,8 @@ func animate_arm(arm_upper: Bone2D, arm_lower: Bone2D):
 	
 	var atan_val = atan2(offset.y, offset.x)
 	
-	var length_0 = arm_upper.default_length
-	var length_1 = arm_lower.default_length
+	var length_0 = abs((arm_upper.global_position - Head.global_position).length())
+	var length_1 = abs((arm_lower.global_position - arm_upper.global_position).length())
 	
 	# it's too far away
 	if length_0 + length_1 < distance:
