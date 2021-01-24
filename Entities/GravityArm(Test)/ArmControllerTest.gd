@@ -12,6 +12,7 @@ onready var Target = get_tree().get_root().get_node("Node2D/Target")
 
 onready var grabArea = Head.get_node("Area2D")
 var newBody
+onready var last_pos = Vector2(0, 0)
 
 func _ready():
 	grabArea.connect("body_entered", self, "_on_physicsbody_entered")
@@ -23,6 +24,7 @@ func _physics_process(_delta):
 		var size = newBody.get_node("Sprite").texture.get_size() * newBody.get_node("Sprite").scale		
 		newBody.global_position = Vector2(0, 0)
 		newBody.position = Vector2(size.y + 0.4, 0)
+	var last_pos = Head.global_position
 	
 	
 func animate_arm(arm_upper: RigidBody2D, arm_lower: RigidBody2D):
@@ -63,7 +65,7 @@ func animate_arm(arm_upper: RigidBody2D, arm_lower: RigidBody2D):
 func custom_collision_check():
 	var space_rid = get_world_2d().space
 	var space_state = Physics2DServer.space_get_direct_state(space_rid)
-	var last_pos = Head.position
+	
 	var hit = space_state.intersect_ray(last_pos, get_global_mouse_position(), [self, Base, ArmPart1.get_node("CollisionShape2D"), ArmPart2.get_node("CollisionShape2D"), Head.get_node("CollisionShape2D"), Head.get_node("Area2D/CollisionShape2D")] )
 	if(hit):
 		print("Hit at point : ", hit.collider.get_parent().name)
